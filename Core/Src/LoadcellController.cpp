@@ -75,12 +75,12 @@ int main(void)
 	MX_GPIO_Init();
 	MX_DMA_Init();
 	MX_ADC1_Init();
-	MX_TIM1_Init();
+	MX_TIM116_Init();
 	MX_IWDG_Init();
 	MX_USART1_UART_Init();
 
 	/* USER CODE BEGIN 2 */
-	HAL_TIM_Base_Start_IT(&htim1);
+	HAL_TIM_Base_Start_IT(&htim16);
 
 
 	Libcanard_module::get_driver().set_name(UAVCAN_MODULE_NAME);
@@ -380,7 +380,7 @@ void HAL_UART_ErrorCallback(UART_HandleTypeDef *huart)
 // Timer period elapsed callback
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if(htim->Instance == TIM1)
+	if(htim->Instance == TIM16)
 	{
 		systick_counter++;
 		isr_system_timer_tick();
