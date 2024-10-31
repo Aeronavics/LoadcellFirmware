@@ -52,7 +52,6 @@ extern "C" {
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
 void SystemClock_Config(void);
-
 /* USER CODE BEGIN EFP */
 
 /* USER CODE END EFP */
@@ -62,7 +61,6 @@ void SystemClock_Config(void);
 #define LED_HEARTBEAT_GPIO_Port GPIOB
 #define LED_OVERLOAD_Pin GPIO_PIN_7
 #define LED_OVERLOAD_GPIO_Port GPIOB
-
 
 /* USER CODE BEGIN Private defines */
 

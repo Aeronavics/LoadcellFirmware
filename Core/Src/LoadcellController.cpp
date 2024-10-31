@@ -31,7 +31,7 @@ static Driver_module *const drivers[] =
 { static_cast<Driver_module*>(&Libcanard_module::get_driver()),
 	static_cast<Driver_module*>(&Mavlink_params::get_driver()),
 	static_cast<Driver_module*>(&uart1_driver),
-	static_cast<Driver_module*>(&Loadcell_driver::get_driver()),
+//	static_cast<Driver_module*>(&Loadcell_driver::get_driver()),
 };
 
 static const size_t NUM_DRIVERS = sizeof(drivers) / sizeof(Driver_module*);
@@ -75,12 +75,13 @@ int main(void)
 	MX_GPIO_Init();
 	MX_DMA_Init();
 	MX_ADC1_Init();
-	MX_CAN1_Init();
 	MX_TIM1_Init();
 	MX_IWDG_Init();
 	MX_USART1_UART_Init();
 
 	/* USER CODE BEGIN 2 */
+	HAL_TIM_Base_Start_IT(&htim1);
+
 
 	Libcanard_module::get_driver().set_name(UAVCAN_MODULE_NAME);
 	/* USER CODE END 2 */
@@ -389,7 +390,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 // ADC callback
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
 {
-	Loadcell_driver::get_driver().adc_callback(AdcHandle);
+//	Loadcell_driver::get_driver().adc_callback(AdcHandle);
 }
 
 void isr_system_timer_tick()
