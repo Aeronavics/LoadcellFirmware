@@ -19,6 +19,7 @@
 #include "stm32l4xx_hal_adc_ex.h"
 
 #include "adc.h"
+#include "dma.h"
 
 #include "main.h"
 
