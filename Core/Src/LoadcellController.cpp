@@ -28,10 +28,11 @@ uint8_t counter;
 
 //driver list
 static Driver_module *const drivers[] =
-{ static_cast<Driver_module*>(&Libcanard_module::get_driver()),
-	static_cast<Driver_module*>(&Mavlink_params::get_driver()),
-	static_cast<Driver_module*>(&uart1_driver),
-//	static_cast<Driver_module*>(&Loadcell_driver::get_driver()),
+{
+		static_cast<Driver_module*>(&Libcanard_module::get_driver()),
+//	static_cast<Driver_module*>(&Mavlink_params::get_driver()),
+//	static_cast<Driver_module*>(&uart1_driver),
+	static_cast<Driver_module*>(&Loadcell_driver::get_driver()),
 };
 
 static const size_t NUM_DRIVERS = sizeof(drivers) / sizeof(Driver_module*);
@@ -73,9 +74,8 @@ int main(void)
 
 	/* Initialize all configured peripherals */
 	MX_GPIO_Init();
-	MX_DMA_Init();
-	MX_ADC1_Init();
-	MX_TIM116_Init();
+	MX_CAN1_Init();
+	MX_TIM16_Init();
 	MX_IWDG_Init();
 	MX_USART1_UART_Init();
 
@@ -390,7 +390,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 // ADC callback
 void HAL_ADC_ConvCpltCallback(ADC_HandleTypeDef *AdcHandle)
 {
-//	Loadcell_driver::get_driver().adc_callback(AdcHandle);
+	Loadcell_driver::get_driver().adc_callback(AdcHandle);
 }
 
 void isr_system_timer_tick()
@@ -428,6 +428,6 @@ uint64_t driverhost_get_monotonic_time_us(void)
 	 *     the counter interrupts every 10000 microseconds, so we can extrapolate this and add where we currently are up to in the timer
 	 */
 	return (uint64_t) ((systick_counter * 10000)
-	    + (uint64_t) __HAL_TIM_GET_COUNTER(&htim1));
+	    + (uint64_t) __HAL_TIM_GET_COUNTER(&htim16));
 }
 

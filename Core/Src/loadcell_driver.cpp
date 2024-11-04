@@ -102,6 +102,8 @@ void Loadcell_driver::sync_update_1Hz(void)
 		}
 		case DRIVER_STATE_INIT:
 		{
+			MX_DMA_Init();
+			MX_ADC1_Init();
 			/* Intialise ADCs*/
 			if (HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED) != HAL_OK)
 			{
@@ -109,13 +111,13 @@ void Loadcell_driver::sync_update_1Hz(void)
 				Error_Handler();
 			}
 
-			if (HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_reading, 1) != HAL_OK)
+			if (HAL_ADC_Start_DMA(&hadc1, (uint32_t *)&adc_reading, 1) != HAL_OK)
 			{
 				/* Start Error */
 				Error_Handler();
 			}
 
-			Libcanard_module::get_driver().sendLog(impl_::LogLevel::Debug, "Loadcell Driver initialized");
+//			Libcanard_module::get_driver().sendLog(impl_::LogLevel::Debug, "Loadcell Driver initialized");
 			next_state = DRIVER_STATE_NORMAL;
 			break;
 		}
@@ -177,7 +179,7 @@ void Loadcell_driver::transmit_telemetry(void)
 
 	com_aeronavics_LoadcellInfo loadcell_info;
 
-	loadcell_info.sensor_id = get_can_param_by_id(CAN_PARAM_IDX_SENSOR_ID)->value.integer_value;
+//	loadcell_info.sensor_id = get_can_param_by_id(CAN_PARAM_IDX_SENSOR_ID)->value.integer_value;
 
 	loadcell_info.weight = measured_weight;
 
