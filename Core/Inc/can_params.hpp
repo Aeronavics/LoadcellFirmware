@@ -35,7 +35,7 @@ extern const size_t NUM_CAN_PARAMS;
 const uint8_t CAN_PARAM_COMPAT_VERSION = 0x0F; // EVERY TIME YOU CHANGE THE PARAMETER DEFINITIONS, INCREMENT THIS NUMBER.
 uavcan_protocol_param_GetSetResponse can_parameters[] =
 {
-        new_integer_can_param("NodeID",                 18,     18),
+        new_integer_can_param("NodeID",                 31,     31),
         new_integer_can_param("SensorID",								0,			0),
 
 };

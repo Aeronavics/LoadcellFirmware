@@ -47,7 +47,7 @@ MEMORY
 {
   RAM    (xrw)    : ORIGIN = 0x20000100,   LENGTH = 48K-256
   RAM2    (xrw)    : ORIGIN = 0x10000000,   LENGTH = 16K
-  FLASH    (rx)    : ORIGIN = 0x800C800,   LENGTH = 200K
+  FLASH    (rx)    : ORIGIN = 0x8000000,   LENGTH = 200K
 }
 PROVIDE(bootloader_info_location = 0x20000000);
 

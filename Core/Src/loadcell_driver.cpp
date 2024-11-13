@@ -179,7 +179,7 @@ void Loadcell_driver::transmit_telemetry(void)
 
 	com_aeronavics_LoadcellInfo loadcell_info;
 
-//	loadcell_info.sensor_id = get_can_param_by_id(CAN_PARAM_IDX_SENSOR_ID)->value.integer_value;
+	loadcell_info.sensor_id = get_can_param_by_id(CAN_PARAM_IDX_SENSOR_ID)->value.integer_value;
 
 	loadcell_info.weight = measured_weight;
 
