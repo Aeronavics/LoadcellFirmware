@@ -209,7 +209,14 @@ void Loadcell_driver::calculate_weight(void)
 	// get moving average of ADC readings
 	float average_adc = calculate_average(loadcell_sensor.raw_values, TELEM_MOVING_AVERAGE_BINS);
 
-	measured_weight = map_loadcell_weight(average_adc);
+	if (get_can_param_by_id(CAN_PARAM_IDX_SCALE)->value.boolean_value)
+	{
+		measured_weight = map_loadcell_weight(average_adc) * get_can_param_by_id(CAN_PARAM_IDX_MULT)->value.real_value;
+	}
+	else
+	{
+		measured_weight = map_loadcell_weight(average_adc);
+	}
 }
 
 /**

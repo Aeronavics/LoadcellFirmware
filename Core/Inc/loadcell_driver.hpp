@@ -23,6 +23,8 @@
 
 #include "main.h"
 
+#include <cmath>
+
 #include <com.aeronavics.LoadcellInfo.h>
 
 

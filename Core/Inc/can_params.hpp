@@ -23,6 +23,8 @@
 enum CAN_PARAM_INDEX {
         CAN_PARAM_IDX_CAN_ID, //This is is a requirement!
         CAN_PARAM_IDX_SENSOR_ID,
+        CAN_PARAM_IDX_MULT,
+        CAN_PARAM_IDX_SCALE,
 };
 
 // TODO - Non-volatile storage of parameters is affected by writing the entire array into EEPROM: this isn't exactly space efficient, and probably needs to be changed at some stage.
@@ -32,11 +34,13 @@ extern const uint8_t CAN_PARAM_COMPAT_VERSION;
 extern uavcan_protocol_param_GetSetResponse can_parameters[];
 extern const size_t NUM_CAN_PARAMS;
 #else
-const uint8_t CAN_PARAM_COMPAT_VERSION = 0x0F; // EVERY TIME YOU CHANGE THE PARAMETER DEFINITIONS, INCREMENT THIS NUMBER.
+const uint8_t CAN_PARAM_COMPAT_VERSION = 0x10; // EVERY TIME YOU CHANGE THE PARAMETER DEFINITIONS, INCREMENT THIS NUMBER.
 uavcan_protocol_param_GetSetResponse can_parameters[] =
 {
-        new_integer_can_param("NodeID",                 31,     31),
-        new_integer_can_param("SensorID",								0,			0),
+        new_integer_can_param("NodeID",         31,     31),
+        new_integer_can_param("SensorID",	0,      0),
+        new_real_can_param("Coefficient",       0.24,   0.24),
+        new_boolean_can_param("Scale",          true,   true),
 
 };
 const size_t NUM_CAN_PARAMS = (sizeof (can_parameters) / sizeof (uavcan_protocol_param_GetSetResponse))+1;
